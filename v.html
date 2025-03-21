@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffccdd;
+            text-align: center;
+        }
+        .container {
+            background: white;
+            width: 50%;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #d63384;
+        }
+        input {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px solid pink;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #ff6699;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #e65c8d;
+        }
+        .tip {
+            font-size: 14px;
+            margin-top: 10px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>💖 Your Number 💖</h1>
+        <p>Don't worry, this will only be private.</p>
+        <input type="text" id="number" placeholder="Enter your number">
+        <br>
+        <button onclick="submitForm()">Submit</button>
+        <p class="tip">Tip: Please share the link with your Valentine after submitting!</p>
+    </div>
+
+    <script>
+        function submitForm() {
+            var number = document.getElementById("number").value;
+            if (number) {
+                window.location.href = "v2.html?number=" + encodeURIComponent(number);
+            } else {
+                alert("Please enter your number!");
+            }
+        }
+    </script>
+
+</body>
+</html>
