@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Demo</title>
+    <style>
+        body {
+            background-color: purple;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        .fade {
+            opacity: 0;
+            transition: opacity 2s;
+        }
+        .visible {
+            opacity: 1;
+        }
+        #loading-bar {
+            width: 0;
+            height: 10px;
+            background-color: white;
+            margin: 20px auto;
+            transition: width 20s linear;
+        }
+        #game-container {
+            display: none;
+        }
+        #loading-bar-container {
+            position: absolute;
+            bottom: 20px;
+            width: 90%;
+            background-color: rgba(255, 255, 255, 0.3);
+            height: 10px;
+            margin: 0 auto;
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            background-color: #6a1b9a;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+        button:hover {
+            background-color: #8e24aa;
+            transform: scale(1.1);
+        }
+        button:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body>
+    <div id="message"></div>
+    <div id="loading-bar-container">
+        <div id="loading-bar"></div>
+    </div>
+    <div id="game-container">
+        <p style="font-size: 1.5em; margin-bottom: 20px;">Choose your move:</p>
+        <button onclick="playGame('rock')">🪨 Rock</button>
+        <button onclick="playGame('paper')">📄 Paper</button>
+        <button onclick="playGame('scissors')">✂️ Scissors</button>
+        <p id="game-result" style="margin-top: 20px; font-style: italic;"></p>
+    </div>
+
+    <script>
+        const messages = [
+            "Hello!",
+            "Let's get prepared",
+            "This takes 20 seconds based on your network",
+            "Don't forget, this is a demo!"
+        ];
+
+        let currentMessage = 0;
+        const messageElement = document.getElementById('message');
+        const loadingBar = document.getElementById('loading-bar');
+        const gameContainer = document.getElementById('game-container');
+
+        function showNextMessage() {
+            if (currentMessage < messages.length) {
+                messageElement.textContent = messages[currentMessage];
+                messageElement.className = 'visible';
+                currentMessage++;
+                setTimeout(() => {
+                    messageElement.className = 'fade';
+                    setTimeout(showNextMessage, 2000);
+                }, 2000);
+            } else {
+                startLoading();
+            }
+        }
+
+        function startLoading() {
+            messageElement.className = 'fade';
+            loadingBar.style.width = '100%';
+
+            setTimeout(() => {
+                gameContainer.style.display = 'block';
+                messageElement.textContent = "Loading sounds boring, let's play Rock Paper Scissors!";
+                messageElement.className = 'visible';
+            }, 2000);
+
+            setTimeout(() => {
+                // Stop the game
+                gameContainer.style.display = 'none';
+                messageElement.textContent = "Let's gooo!";
+                messageElement.className = 'visible';
+
+                setTimeout(() => {
+                    window.location.href = 'menu.html';
+                }, 4000);
+            }, 20000);
+        }
+
+        function playGame(playerMove) {
+            const moves = ['rock', 'paper', 'scissors'];
+            const aiMove = moves[Math.floor(Math.random() * moves.length)];
+            let result;
+
+            if (playerMove === aiMove) {
+                result = "It's a tie!";
+            } else if (
+                (playerMove === 'rock' && aiMove === 'scissors') ||
+                (playerMove === 'paper' && aiMove === 'rock') ||
+                (playerMove === 'scissors' && aiMove === 'paper')
+            ) {
+                result = "You win!";
+            } else {
+                result = "AI wins!";
+            }
+
+            document.getElementById('game-result').textContent = `You chose ${playerMove}, AI chose ${aiMove}. ${result}`;
+        }
+
+        showNextMessage();
+    </script>
+</body>
+</html>
