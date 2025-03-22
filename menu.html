@@ -41,6 +41,26 @@
             color: white;
             display: block;
         }
+        .download {
+            margin-top: 20px;
+            display: none; /* Hidden by default */
+        }
+        .download a {
+            color: blue;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        .download a:hover {
+            text-decoration: underline;
+        }
+        @media screen and (max-width: 768px) {
+            /* Check for mobile Android devices */
+            @supports (-webkit-overflow-scrolling: touch) {
+                .download {
+                    display: block; /* Show only on mobile */
+                }
+            }
+        }
     </style>
 </head>
 <body>
@@ -52,6 +72,9 @@
             <li><a href="game.html">2. Gamemode</a></li>
             <li><a href="tool.html">3. Tools</a></li>
         </ul>
+        <div class="download">
+            <a href="https://github.com/SouthWardDev/SWeb-Demo/releases/download/v1.0.0-Demo/com.SouthWardDev.SouthWeb.apk">Download SouthWeb! [only Android!]</a>
+        </div>
     </div>
 
 </body>
